@@ -1,20 +1,30 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './schemas/user.schema';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+ 
 
 @Controller('api')
 export class UserController {
     constructor(
-        private userService: UserService
+        private userService: UserService,
+        private readonly eventEmitter: EventEmitter2
     ){}
 
     @Post('users')
     async createUser(
         @Body()
-        user
+        user: User
     ): Promise<any> {
-        const res = this.userService.create(user)
-        return { status: 'success', data: res };
+        const status = await this.userService.create(user)
+
+        if (status === 'success') {
+            this.eventEmitter.emit('user.registered.send.email', { email: user.email });
+            return { status: 'success', message: 'User has been created.' }
+        } else {
+            return { status: 'failed', message: 'User already exists.' }
+        }
+        
     }
 
     @Get('user/:id')
@@ -73,7 +83,7 @@ export class UserController {
                     message: `User with reqres id ${id} not found`}
         }
 
-        return { status: 'success'}
+        return { status: 'success', message: 'User has been deleted'}
     }
 
 }

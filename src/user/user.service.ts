@@ -10,9 +10,15 @@ export class UserService {
         private userModel: mongoose.Model<User>
     ) {}
 
-    async create(user: User): Promise<User> {
-        const res = await this.userModel.create(user)
-        return res
+    async create(user: User): Promise<any> {
+        const existingUser = await this.userModel.findOne({id: user.id}).exec()
+        console.log("is created: ", existingUser)
+        if (!existingUser) {
+            await this.userModel.create(user)
+            return 'success'
+        } else {
+            return 'failed'
+        }
     }
 
     async findByReqResId(id: string): Promise<User> {
