@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { NotificationModule } from './notification/notification.module';
+import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
 
 @Module({
   imports: [
@@ -16,6 +17,15 @@ import { NotificationModule } from './notification/notification.module';
     MongooseModule.forRoot( process.env.DB_URI ),
     UserModule,
     EventEmitterModule.forRoot(),
+    RabbitMQModule.forRoot(RabbitMQModule, {
+      exchanges: [
+        {
+          name: 'exchange1',
+          type: 'topic',
+        },
+      ],
+      uri: 'amqps://jgtaogkf:Kc29J0w-r6M6btXE11wx9aUj8JQEzRDu@hawk.rmq.cloudamqp.com/jgtaogkf',
+    }),
     NotificationModule
   ],
   controllers: [AppController],
