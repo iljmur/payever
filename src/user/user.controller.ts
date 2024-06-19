@@ -20,6 +20,7 @@ export class UserController {
 
         if (status === 'success') {
             this.eventEmitter.emit('user.registered.send.email', { email: user.email });
+            this.eventEmitter.emit('user.registered.send.message', { email: user.email });
             return { status: 'success', message: 'User has been created.' }
         } else {
             return { status: 'failed', message: 'User already exists.' }
