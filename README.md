@@ -1,73 +1,173 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+NestJS Application
+Welcome to the NestJS application! This document provides an overview of the project, instructions for setting up the development environment, running the application, and detailed descriptions of the available API endpoints.
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Table of Contents
+Introduction
+Prerequisites
+Installation
+Running the Application
+Testing
+API Endpoints
+Project Structure
+Contributing
+License
+Introduction
+This is a typical NestJS application designed to manage user information, including user registration, retrieval, avatar management, and deletion. NestJS is a progressive Node.js framework for building efficient, reliable, and scalable server-side applications.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Prerequisites
+Ensure you have the following installed on your development machine:
 
-## Description
+Node.js (version 14.x or later)
+npm (version 6.x or later) or yarn (version 1.x or later)
+Installation
+Clone the repository:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+bash
+Copy code
+git clone https://github.com/your-username/your-repository.git
+Navigate to the project directory:
 
-## Installation
+bash
+Copy code
+cd your-repository
+Install the dependencies:
 
-```bash
-$ npm install
-```
+Copy code
+npm install
+or
 
-## Running the app
+Copy code
+yarn install
+Running the Application
+To start the application, run the following command:
 
-```bash
-# development
-$ npm run start
+arduino
+Copy code
+npm run start
+or
 
-# watch mode
-$ npm run start:dev
+sql
+Copy code
+yarn start
+The application will be available at http://localhost:3000.
 
-# production mode
-$ npm run start:prod
-```
+Testing
+To run the tests, use the following command:
 
-## Test
+arduino
+Copy code
+npm run test
+or
 
-```bash
-# unit tests
-$ npm run test
+bash
+Copy code
+yarn test
+To run the end-to-end (E2E) tests:
 
-# e2e tests
-$ npm run test:e2e
+arduino
+Copy code
+npm run test:e2e
+or
 
-# test coverage
-$ npm run test:cov
-```
+bash
+Copy code
+yarn test:e2e
+To run the tests in watch mode:
 
-## Support
+arduino
+Copy code
+npm run test:watch
+or
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+bash
+Copy code
+yarn test:watch
+API Endpoints
+Below are the available API endpoints:
 
-## Stay in touch
+Create a User
+POST /api/users
+Create a new user.
+Request Body:
+json
+Copy code
+{
+  "id": "string",
+  "email": "string"
+}
+Responses:
+201 Created
+json
+Copy code
+{
+  "status": "success",
+  "message": "User has been created."
+}
+200 OK
+json
+Copy code
+{
+  "status": "failed",
+  "message": "User already exists."
+}
+Retrieve a User by ID
+GET /api/user/
+Retrieve a user by their ID.
+Responses:
+200 OK
+json
+Copy code
+{
+  "status": "success",
+  "data": {
+    "id": "string",
+    "email": "string",
+    ...
+  }
+}
+Retrieve a User's Avatar
+GET /api/user/
+/avatar
+Retrieve the avatar of a user by their ID.
+Responses:
+200 OK
+json
+Copy code
+{
+  "status": "success",
+  "data": "base64EncodedAvatar"
+}
+200 OK (if user not found)
+json
+Copy code
+{
+  "status": "failed",
+  "message": "User with reqres id:123 not found, unable to proceed with updating avatar. Please create a user first."
+}
+200 OK (if external user not found)
+json
+Copy code
+{
+  "status": "failed",
+  "message": "Unable to find reqres user with id:123"
+}
+Delete a User by ID
+DELETE /api/user/
+/avatar
+Delete a user by their ID.
+Responses:
+200 OK
+json
+Copy code
+{
+  "status": "success",
+  "message": "User has been deleted"
+}
+200 OK (if user not found)
+json
+Copy code
+{
+  "status": "failed",
+  "message": "User with reqres id 123 not found"
+}
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
