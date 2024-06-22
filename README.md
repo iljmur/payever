@@ -19,23 +19,22 @@ POST /api/users
   "id": "string",
   "email": "string",
   "fist_name": "string",
-  "last_name": "string,
-  "avater": "string"
+  "last_name": "string
 }
 ```
   - Responses:
   - [201 Created]
 ```
 {
-  "status": "success",
-  "message": "User has been created."
+    "status": "success",
+    "message": "User has been created."
 }
 ```
-  - [200 OK]
+  - [409 Conflict]
 ```
 {
-  "status": "failed",
-  "message": "User already exists."
+    "status": "failed",
+    "message": "User already exists."
 }
 ```
 
@@ -46,59 +45,52 @@ GET /api/user/
 - [200 OK]
 ```
 {
-  "status": "success",
-  "data": {
-    "id": "string",
-    "email": "string",
-    "fist_name": "string",
-    "last_name": "string,
-    "avater": "string"
-  }
+    "data": {
+        "id": ***,
+        "email": "de@de.de",
+        "first_name": "Max",
+        "last_name": "Musterman",
+        "avatar": "https://reqres.in/img/faces/***"
+    }
 }
 ```
 
-### Retrieve a User's Avatar
+### Retrieve User's Avatar
 GET /api/user/:id/avatar
 - Retrieve the avatar of a user by their ID.
 - Responses:
 - [200 OK]
 ```
 {
-  "status": "success",
   "data": "base64EncodedAvatar"
 }
 ```
-- [200 OK] 
-(if user not found)
+- [404 Not Found] if user not found
 ```
 {
-  "status": "failed",
-  "message": "User with reqres id: *** not found, unable to proceed with updating avatar. Please create a user first."
+    "message": "Failed to fetch user from reqres using id:***",
+    "error": "Not Found",
+    "statusCode": 404
 }
 ```
-- [200 OK] (if external user not found)
-```
-{
-  "status": "failed",
-  "message": "Unable to find reqres user with id:***"
-}
-```
-### Delete a User by ID
+
+### Delete User's Avatar
 DELETE /api/user/:id/avatar
-- Delete a user by their ID.
+
 - Responses:
 - [200 OK]
 ```
 {
-  "status": "success",
-  "message": "User has been deleted"
+    "status": "success",
+    "message": "Avatar has been deleted."
 }
 ```
-- [200 OK] (if user not found)
+- [404 Not Found] if user not found
 ```
 {
-  "status": "failed",
-  "message": "User with reqres id *** not found"
+    "message": "Unable to delete avatar: avatar with reqres id 2 not found",
+    "error": "Not Found",
+    "statusCode": 404
 }
 ```
 
