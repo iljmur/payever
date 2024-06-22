@@ -20,7 +20,7 @@ import { AvatarModule } from './avatar/avatar.module';
     RabbitMQModule.forRoot(RabbitMQModule, {
       exchanges: [
         {
-          name: 'exchange1',
+          name: 'user_exchange',
           type: 'topic',
         },
       ],
